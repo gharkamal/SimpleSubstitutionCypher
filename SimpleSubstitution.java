@@ -21,10 +21,22 @@ public class SimpleSubsitution {
         return countArray;
         
     }
-    public static String[] swapText(String[] key)
+    public static char[] swapText(String[] key, String cypherText)
     {
+        char[] c = cypherText.toCharArray();
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for(int y =0; y < c.length; y++)
+        {
+            for (int i = 0; i < alphabet.length(); i++)
+            {
+                if (alphabet.charAt(i) == c[y]) {
+                    
+                    c[y] = key[i].charAt(0);
+                }
+            }
+        }
         
-        return key;
+        return c;
         
     }
     
@@ -33,16 +45,9 @@ public class SimpleSubsitution {
         Scanner input = new Scanner(System.in);
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String[] key = new String[26];
-        //System.out.println("Enter CypherText: ");
-        int[] count = frequency("GBSXUCGSZQGKGSQPKQKGLSKASPCGBGBKGUKGCEUKUZKGGBSQEICA"
-                                + "CGKGCEUERWKLKUPKQQGCIICUAEUVSHqKGCEUPCGBCGQOEVSHUNSU"
-                                + "GKUZCGQSNLSHEHIEEDCUOGEPKHZGBSNKCUGSUKUASERLSKASCUGB"
-                                + "SLKACRCACUZSSZEUSBEXHKRGSHWKLKUSQSKCHQTXKZHEUQBKZAEN"
-                                + "NSUASZFENFCUOCUEKBXGBSWKLKUSQSKNFKQQKZEHGEGBSXUCGSZQ"
-                                + "GKGSQKUZBCQAEIISKOXSZSICVSHSZGEGBSQSAHSGKHMERQGKGSKR"
-                                + "EHNKIHSLIMGEKHSASUGKNSHCAKUNSQQKOSPBCISGBCqHSLIMQGKG"
-                                + "SZGBKGCGQSSNSZXQSISQQGEAEUGCUXSGBSSJCqGCUOZCLIENKGCA"
-                                + "USOEGCKGCEUqCGAEUGKCUSZUEGBHSKGEHBCUGERPKHEHKHNSZKGGKAD");
+        System.out.println("Enter CypherText: ");
+        String cypherText = input.nextLine();
+        int[] count = frequency(cypherText);
         for(int i = 0; i < count.length; i++)
         {
             System.out.println(alphabet.charAt(i) + " :" + count[i]);
@@ -60,6 +65,8 @@ public class SimpleSubsitution {
         {
             System.out.println(alphabet.charAt(i) + " :" + key[i]);
         }
+        System.out.println("Attempted PlainText: ")
+        System.out.println(swapText(key, cypherText));
     }
     
 }
