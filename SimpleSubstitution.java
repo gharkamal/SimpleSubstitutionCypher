@@ -65,7 +65,7 @@ public class SimpleSubsitution {
         {
             System.out.println(alphabet.charAt(i) + " :" + key[i]);
         }
-        System.out.println("Attempted PlainText: ")
+        System.out.println("Attempted PlainText: ");
         System.out.println(swapText(key, cypherText));
     }
     
