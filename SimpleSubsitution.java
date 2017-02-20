@@ -4,8 +4,6 @@ import java.util.Scanner;
 public class SimpleSubstitution {
     String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
-    
-    
     public void cipherTextFrequency(String a) {
         char[] c = a.toCharArray();
         
@@ -19,20 +17,20 @@ public class SimpleSubstitution {
         }
         double length = 0;
         for (double x : countArray) {
-            if(x > 0.0)
-            {
+            if (x > 0.0) {
                 length = x + length;
             }
         }
-        System.out.println(length);
+        
         System.out.println("CypherText Frequency: ");
         for (int i = 0; i < countArray.length; i++) {
-            System.out.println(alphabet.charAt(i) + " :" + (countArray[i]/length)*100);
+            System.out.println("\t" + alphabet.charAt(i) + " :"
+                               + (countArray[i] / length) * 100);
         }
         
     }
-    public void printEnglishLetterFrequency()
-    {
+    
+    public void printEnglishLetterFrequency() {
         System.out.println("English letter Frequency: ");
         
         double[] englishLetter = new double[26];
@@ -46,7 +44,7 @@ public class SimpleSubstitution {
         englishLetter[7] = 6.09;
         englishLetter[8] = 6.97;
         englishLetter[9] = .15;
-        englishLetter[10] =.77;
+        englishLetter[10] = .77;
         englishLetter[11] = 4.03;
         englishLetter[12] = 2.41;
         englishLetter[13] = 6.75;
@@ -64,19 +62,20 @@ public class SimpleSubstitution {
         englishLetter[25] = .07;
         
         for (int i = 0; i < englishLetter.length; i++) {
-            System.out.println(alphabet.charAt(i) + " :" + (englishLetter[i]));
+            System.out.println("\t" + alphabet.charAt(i) + " :"
+                               + (englishLetter[i]));
         }
         
     }
     
-    public String swapText(String key, String cypherText) {
+    public void swapText(String key, String cypherText) {
         
         char[] keySplit = key.toCharArray();
         char[] cypher = cypherText.toCharArray();
         char[] alph = alphabet.toCharArray();
         
         for (int i = 0; i < alph.length; i++) {
-            for (int x = 0; i < cypher.length; x++) {
+            for (int x = 0; x < cypher.length; x++) {
                 if (alph[i] == cypher[x]) {
                     
                     cypher[x] = keySplit[i];
@@ -84,16 +83,19 @@ public class SimpleSubstitution {
                 }
             }
         }
+        System.out.println("User Key: ");
         for (int i = 0; i < key.length(); i++) {
-            System.out.println(alphabet.charAt(i) + " :" + keySplit[i]);
-            System.out.println("Attempted PlainText: ");
+            System.out.println("\t" + alphabet.charAt(i) + " :" + keySplit[i]);
         }
-        return cypher.toString();
-        
+        System.out.println("Attempted PlainText: ");
+        for (char s : cypher) {
+            System.out.print(s);
+        }
     }
     
     public static void main(String[] args) {
         SimpleSubstitution object = new SimpleSubstitution();
+        
         Scanner input = new Scanner(System.in);
         System.out.println("Enter CypherText: ");
         String cypherText = input.nextLine().toUpperCase();
@@ -101,9 +103,8 @@ public class SimpleSubstitution {
         object.cipherTextFrequency(cypherText);
         object.printEnglishLetterFrequency();
         
-        
         String key = "";
-        System.out.println("Guess key: ");
+        System.out.println("Guess Key: ");
         for (int i = 0; i < 26; i++) {
             System.out.println(object.alphabet.charAt(i) + ": ");
             key = key + input.nextLine().toUpperCase();
@@ -113,5 +114,3 @@ public class SimpleSubstitution {
     }
     
 }
-
-
