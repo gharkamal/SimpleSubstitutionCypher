@@ -1,72 +1,118 @@
 import java.lang.reflect.Array;
 import java.util.Scanner;
 
-
-public class SimpleSubsitution {
+class SimpleSubstitution {
+    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     
-    public static int[] frequency(String a)
-    {
+    public void cipherTextFrequency(String a) {
         char[] c = a.toCharArray();
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        int[] countArray = new int[26];
-        for (char x : c)
-        {
-            for (int i = 0; i < alphabet.length(); i++)
-            {
+        
+        double[] countArray = new double[26];
+        for (char x : c) {
+            for (int i = 0; i < alphabet.length(); i++) {
                 if (alphabet.charAt(i) == x) {
                     countArray[i]++;
                 }
             }
         }
-        return countArray;
-        
-    }
-    public static char[] swapText(String[] key, String cypherText)
-    {
-        char[] c = cypherText.toCharArray();
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        for(int y =0; y < c.length; y++)
-        {
-            for (int i = 0; i < alphabet.length(); i++)
-            {
-                if (alphabet.charAt(i) == c[y]) {
-                    
-                    c[y] = key[i].charAt(0);
-                }
+        double length = 0;
+        for (double x : countArray) {
+            if (x > 0.0) {
+                length = x + length;
             }
         }
         
-        return c;
+        System.out.println("CypherText Frequency: ");
+        for (int i = 0; i < countArray.length; i++) {
+            double value = Math.round(((countArray[i] / length) * 100)*100.0)/100.0;
+            
+            System.out.println("\t" + alphabet.charAt(i) + " :"
+                               + value);
+        }
         
     }
     
-    public static void main(String[] args)
-    {
-        Scanner input = new Scanner(System.in);
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        String[] key = new String[26];
-        System.out.println("Enter CypherText: ");
-        String cypherText = input.nextLine();
-        int[] count = frequency(cypherText);
-        for(int i = 0; i < count.length; i++)
-        {
-            System.out.println(alphabet.charAt(i) + " :" + count[i]);
+    public void printEnglishLetterFrequency() {
+        System.out.println("English letter Frequency: ");
+        
+        double[] englishLetter = new double[26];
+        englishLetter[0] = 8.17;
+        englishLetter[1] = 1.49;
+        englishLetter[2] = 2.78;
+        englishLetter[3] = 4.25;
+        englishLetter[4] = 1.27;
+        englishLetter[5] = 2.23;
+        englishLetter[6] = 2.02;
+        englishLetter[7] = 6.09;
+        englishLetter[8] = 6.97;
+        englishLetter[9] = .15;
+        englishLetter[10] = .77;
+        englishLetter[11] = 4.03;
+        englishLetter[12] = 2.41;
+        englishLetter[13] = 6.75;
+        englishLetter[14] = 7.51;
+        englishLetter[15] = 1.93;
+        englishLetter[16] = .1;
+        englishLetter[17] = 5.99;
+        englishLetter[18] = 6.33;
+        englishLetter[19] = 9.06;
+        englishLetter[20] = 2.76;
+        englishLetter[21] = .98;
+        englishLetter[22] = 2.36;
+        englishLetter[23] = .15;
+        englishLetter[24] = 1.97;
+        englishLetter[25] = .07;
+        
+        for (int i = 0; i < englishLetter.length; i++) {
+            System.out.println("\t" + alphabet.charAt(i) + " :"
+                               + (englishLetter[i]));
         }
         
+    }
+    
+    public void swapText(String key, String cypherText) {
         
+        char[] keySplit = key.toCharArray();
+        char[] cypher = cypherText.toCharArray();
+        char[] alph = alphabet.toCharArray();
         
-        System.out.println("Guess key: ");
-        for(int i = 0;i < 26; i++)
-        {
-            System.out.println(alphabet.charAt(i) + ": ");
-            key[i] = input.nextLine();
+        for (int i = 0; i < alph.length; i++) {
+            for (int x = 0; x < cypher.length; x++) {
+                if (alph[i] == cypher[x]) {
+                    
+                    cypher[x] = keySplit[i];
+                    
+                }
+            }
         }
-        for(int i = 0; i < key.length; i++)
-        {
-            System.out.println(alphabet.charAt(i) + " :" + key[i]);
+        System.out.println("User Key: ");
+        for (int i = 0; i < key.length(); i++) {
+            System.out.println("\t" + alphabet.charAt(i) + " :" + keySplit[i]);
         }
         System.out.println("Attempted PlainText: ");
-        System.out.println(swapText(key, cypherText));
+        for (char s : cypher) {
+            System.out.print(s);
+        }
+    }
+    
+    public static void main(String[] args) {
+        SimpleSubstitution object = new SimpleSubstitution();
+        
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter CypherText: ");
+        String cypherText = input.nextLine().toUpperCase();
+        
+        object.cipherTextFrequency(cypherText);
+        object.printEnglishLetterFrequency();
+        
+        String key = "";
+        System.out.println("Guess Key: ");
+        for (int i = 0; i < 26; i++) {
+            System.out.println(object.alphabet.charAt(i) + ": ");
+            key = key + input.nextLine().toUpperCase();
+        }
+        
+        object.swapText(key, cypherText);
     }
     
 }
